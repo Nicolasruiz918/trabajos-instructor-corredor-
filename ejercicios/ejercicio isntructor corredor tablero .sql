@@ -71,7 +71,15 @@ INSERT INTO DetalleOrden VALUES
 (4,4, 15000, 3, 3); 
 
 
--- Consulta para reporte detallado de órdenes con totales
+
+UPDATE Plato SET precio = 35000
+WHERE id_plato = 1;  
+
+
+UPDATE Mesero SET sueldo = 1300000
+WHERE id_mesero = 2;  
+
+
 SELECT 
     o.numero_orden AS #orden , 
     m.nombre AS mesero,           
@@ -81,12 +89,7 @@ SELECT
     do.cantidad,                 
     (do.valor * do.cantidad) AS subtotal,  
     (SELECT SUM(d2.valor * d2.cantidad) 
-    
-	
-	
-	
-	
-	FROM DetalleOrden d2 
+    FROM DetalleOrden d2 
     WHERE d2.id_orden = o.id_orden ) AS total_orden              
     FROM Orden o
     INNER JOIN Mesero m  ON o.id_mesero = m.id_mesero
@@ -111,3 +114,21 @@ INNER JOIN Mesero m  ON o.id_mesero = m.id_mesero
 INNER JOIN DetalleOrden do  ON o.id_orden = do.id_orden
 INNER JOIN Plato p  ON do.id_plato = p.id_plato
 ORDER BY o.fecha DESC, o.numero_orden;
+
+DELETE FROM DetalleOrden WHERE id_orden = 3;
+DELETE FROM Orden WHERE id_orden = 3;
+DELETE FROM Mesero WHERE id_mesero = 3;
+
+
+ALTER TABLE Plato ADD categoria VARCHAR(100);  
+ALTER TABLE Mesero ALTER COLUMN  telefono VARCHAR(20);  
+
+
+
+TRUNCATE TABLE DetalleOrden;
+ 
+DROP TABLE DetalleOrden;
+DROP TABLE Orden;
+DROP TABLE Plato ;
+DROP TABLE Mesero;
+
