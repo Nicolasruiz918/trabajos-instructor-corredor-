@@ -45,7 +45,7 @@ CREATE TABLE DetalleOrden (
 );
 
 INSERT INTO Mesero VALUES
-(1,'santiago Rodriguez', '321455432', 'Juanperez@gmail.com', 'Av. Principal 123', 1200000),
+(1,'santiago Rodriguez', '321455432', 'SantiagoR@gmail.com', 'Av. Principal 123', 1200000),
 (2,'María ', '3123211245', 'MariaG@gmail.com', 'Calle42', 1200000),
 (3,'Carlos López', '3134567654', 'Carloslopez@gmail.com', 'prado norte ', 1250000),
 (4,'Ana Martínez', '321307402', 'Martinez@gmail.com', 'Avenida Sur 321', 1300000);
