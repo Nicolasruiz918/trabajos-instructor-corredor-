@@ -45,10 +45,10 @@ CREATE TABLE DetalleOrden (
 );
 
 INSERT INTO Mesero VALUES
-(1,'Juan Pérez', '555-1234', 'Juanperez@gmail.com', 'Av. Principal 123', 1200000),
-(2,'María García', '555-5678', 'MariaG@gmail.com', 'Calle Secundaria 456', 1200000),
-(3,'Carlos López', '555-9012', 'Carloslopez@gmail.com', 'Boulevard Norte 789', 1250000),
-(4,'Ana Martínez', '555-3456', 'Martinez@gmail.com', 'Avenida Sur 321', 1300000);
+(1,'santiago Rodriguez', '321455432', 'Juanperez@gmail.com', 'Av. Principal 123', 1200000),
+(2,'María ', '3123211245', 'MariaG@gmail.com', 'Calle42', 1200000),
+(3,'Carlos López', '3134567654', 'Carloslopez@gmail.com', 'prado norte ', 1250000),
+(4,'Ana Martínez', '321307402', 'Martinez@gmail.com', 'Avenida Sur 321', 1300000);
 
 
 INSERT INTO Plato VALUES
