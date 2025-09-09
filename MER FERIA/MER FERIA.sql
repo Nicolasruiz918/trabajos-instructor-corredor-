@@ -1,4 +1,4 @@
-﻿CREATE DATABASE FeriaColombiaDB;
+CREATE DATABASE FeriaColombiaDB;
 
 USE FeriaColombiaDB;
 
@@ -308,39 +308,7 @@ VALUES (12, 'ExpoCarros', 'Bogotá', '2025-11-01', '2025-11-05');
 
 
 
-
-
--- 2. Evitar que una persona tenga más de un rol (no puede ser Ponente y Responsable al mismo tiempo)
-CREATE TRIGGER trg_UnSoloRolPersona
-ON Persona
-AFTER INSERT, UPDATE
-AS
-BEGIN
-    IF EXISTS (
-        SELECT p.id_persona
-        FROM Persona p
-        WHERE p.id_persona IN (SELECT id_persona FROM Ponente)
-          AND p.id_persona IN (SELECT id_persona FROM Responsable)
-    )
-    BEGIN
-        RAISERROR('Una persona no puede ser Responsable y Ponente al mismo tiempo', 16, 1);
-        ROLLBACK TRANSACTION;
-    END
-END;
-GO
-
-
-
--- Persona 11 solo como Responsable
-INSERT INTO Persona (id_persona, nombre, edad, telefono)
-VALUES (11, 'Laura Correcta', 29, '3209999999');
-
-INSERT INTO Responsable (id_responsable, id_persona)
-VALUES (11, 11);
-
-
-
--- 3. Evitar que un stand quede sin empresa asociada
+-- 2. Evitar que un stand quede sin empresa asociada
 CREATE TRIGGER trg_StandDebeTenerEmpresa
 ON Stand
 FOR INSERT, UPDATE
@@ -366,8 +334,8 @@ INSERT INTO Stand (id_stand, nombre, id_pabellon, id_empresa)
 VALUES (12, 'Stand Sin Empresa', 1, NULL);
 
 
-
--- 4. Evitar que un producto tenga nombre duplicado dentro del mismo stand
+go
+-- 3. Evitar que un producto tenga nombre duplicado dentro del mismo stand
 CREATE TRIGGER trg_ProductoUnicoPorStand
 ON Producto
 FOR INSERT, UPDATE
@@ -399,12 +367,34 @@ VALUES (12, 1, 2, 'Café Colombiano A');
 
 
 
+--muestra el registro si agrega mas datos 
 
 
+CREATE  TABLE  logPersona(
+id_log int identity primary key,
+id_Persona int ,
+nombre_persona varchar (100),
+fecha_regitro datetime default getdate()
+);
+
+go
+
+CREATE TRIGGER trg_persona
+ON Persona  --se va a aplicar sobre la tabla Persona. 
+AFTER INSERT  --despues 
+AS
+BEGIN 
+    INSERT INTO logPersona (id_persona, nombre_persona)
+    SELECT id_persona, nombre 
+    FROM inserted; --Contiene los datos que acaban de ser insertados en la tabla Persona.
+END;
+GO
+
+INSERT INTO Persona (id_persona, nombre, edad, telefono) 
+VALUES (13, 'nicolas estid', 18, 3103404820);
 
 
-
-
+SELECT * FROM logPersona 
 
 
 
@@ -444,6 +434,7 @@ WHERE id_empresa IN (
     WHERE id_pabellon IN (
         SELECT id_pabellon FROM Pabellon
         WHERE id_feria = 2
+
     )
 );
 
